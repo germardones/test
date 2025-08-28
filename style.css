@@ -79,7 +79,7 @@
       gap:10px;padding:12px 18px;border-radius:var(--radius);
       border:1px solid transparent;font-weight:700
     }
-    .btn-primary{background:var(--verde);color:rgb(255, 255, 255);border-color:transparent;font-weight: 500;}
+    .btn-primary{background:var(--verde);color:rgb(255, 255, 255);font-weight: 300;}
     .btn-primary:hover{box-shadow: 0 6px 18px rgba(0,184,176,.35)}
     .btn-outline{background:transparent;color:#DFF;border-color:rgba(255,255,255,.25);font-weight: 500;}
     .btn-outline:hover{background:rgba(255,255,255,.06)}
