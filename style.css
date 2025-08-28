@@ -60,22 +60,6 @@
       overflow:hidden;
       text-align:left;
     }
-    /* Canvas de partículas: ocupa todo y queda sobre el fondo */
-    #tsparticles{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      z-index:1;              /* por encima del fondo */
-      pointer-events:none;    /* no bloquea clics */
-    }
-    /* Forzamos el canvas a cubrir */
-    #tsparticles canvas{
-      display:block;
-      width:100% !important;
-      height:100% !important;
-      filter: blur(0.6px);    /* sutil: aspecto difuso/opaco; quita o ajusta si quieres */
-    }
     .hero .content{
       width:min(1000px,92%);
       position:relative;
@@ -180,6 +164,122 @@
     }
 
 
+    /* CARRUSEL DE VALORES */
+
+
+    .marquee{
+      overflow:hidden;
+      padding: 32px 0;
+      background:#fff;            /* ajusta según tu diseño */
+    }
+
+    .marquee__inner{
+      display:flex;
+      width:max-content;          /* ancho según contenido */
+      will-change: transform;
+      animation: scroll-right 40s linear infinite;  /* velocidad */
+    }
+    .marquee__inner:hover{ animation-play-state: paused; } /* opcional: pausa al hover */
+
+    .marquee__group{
+      display:flex;
+      align-items:center;
+      gap: clamp(24px, 4vw, 64px);
+      padding-right: clamp(24px, 4vw, 64px); /* espacio entre grupos */
+    }
+
+    .word{
+      font: 800 clamp(28px, 8vw, 120px)/1.05 Inter, system-ui, sans-serif;
+      color: var(--azul-oscuro);
+      -webkit-text-stroke: 2px #111;    /* contorno negro */
+      text-transform: none;              /* o uppercase si quieres */
+      white-space: nowrap;
+    }
+
+    /* Movimiento hacia la DERECHA (de -50% a 0 con dos grupos) */
+    @keyframes scroll-right{
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
+    }
+
+    /* Accesibilidad: respeta “reducir movimiento” */
+    @media (prefers-reduced-motion: reduce){
+      .marquee__inner{ animation: none; transform: none; }
+    }
+
+
+    /*FOOTER */
+
+
+    .site-footer{
+      background:#0b0b0b;
+      color:#eaeaea;
+      padding:48px 0 32px;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    }
+    .site-footer .container{width:min(1120px,92%);margin:0 auto}
+
+    .footer-cta{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      flex-wrap:wrap;margin-bottom:24px
+    }
+    .footer-cta h2{font-weight:700;letter-spacing:-.01em;margin:0}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid #2a2a2a;font-weight:600}
+    .btn-white{background:#fff;color:#111;border-color:#fff}
+    .btn-outline{background:transparent;color:#fff}
+    .btn:hover{opacity:.92}
+
+    .divider{border:0;border-top:1px solid #1e1e1e;margin:24px 0 28px}
+
+    .footer-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+    }
+    .ft-title{
+      color:#a0a0a0;font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin:0 0 14px;
+    }
+    .ft-links{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .ft-links a{color:#eaeaea;text-decoration:none;opacity:.9}
+    .ft-links a:hover{opacity:1;text-decoration:underline}
+
+    .badges{
+      display:flex;gap:50px;flex-wrap:wrap;margin:32px 0 20px;
+    }
+    .badge-title{color:#a0a0a0;margin:0 0 10px;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+    .badge-row{display:flex;gap:10px}
+    .store-badge{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 14px;border-radius:10px;background:#191919;border:1px solid #2a2a2a;color:#f3f3f3;
+      font-weight:600;font-size:14px;min-width:140px;text-align:center;
+    }
+    .store-badge:hover{background:#1f1f1f}
+
+    .footer-bottom{
+      display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px;
+    }
+    .social{display:flex;gap:10px}
+    .social-btn{
+      width:38px;height:38px;border-radius:999px;background:#191919;border:1px solid #2a2a2a;
+      display:grid;place-items:center;color:#eaeaea
+    }
+    .social-btn:hover{background:#222}
+    .lang-btn{
+      background:#191919;border:1px solid #2a2a2a;color:#eaeaea;border-radius:10px;padding:8px 12px;font-weight:600
+    }
+    .copy{grid-column:1 / -1;color:#a5a5a5;margin-top:6px;display:block}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .footer-cta{flex-direction:column;align-items:flex-start}
+      .footer-grid{grid-template-columns:1fr}
+      .badges{gap:18px}
+      .footer-bottom{grid-template-columns:1fr;gap:12px}
+    }
+
+
+
     /* Plataformas */
     .platforms{background:linear-gradient(to bottom,#fff,#fafafa)}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -228,7 +328,7 @@
 
     /* Sobre + Contacto */
     .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-    .about{background:#fff;border:1px solid var(--gris);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+    .about{background:var(--azul-oscuro);padding:20px;box-shadow:var(--shadow)}
     form{display:grid;gap:12px}
     input,textarea{
       padding:12px 14px;border-radius:12px;border:1px solid #d6dee6;background:#fff;
@@ -237,7 +337,7 @@
     textarea{min-height:120px;resize:vertical}
 
     /* Footer */
-    footer{padding:28px 0;background:#0d1a33;color:#c7d2e0}
+    footer{padding:28px 0;background:var(--azul-oscuro);color:#c7d2e0}
     .foot{display:flex;align-items:center;justify-content:space-between;gap:14px}
     .foot small{opacity:.8}
 
